@@ -14,5 +14,16 @@ git pull origin nome_da_branch
 
 --enviar--
 
-git push origin nome_da_branch
+git push 
+
+--gits--
+
+//adicionar um arquivo por vez
+
+git add "arquivo.txt"
+//varios arquivos dd uma vez só
+git add .
+
+//comentar
+git commit -m "Mensagem do commit"
 
