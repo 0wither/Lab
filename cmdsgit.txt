@@ -1,0 +1,18 @@
+COMMANDOS
+
+--Fazer comit--
+
+git commit -m "Mensagem do commit"
+
+--logs--
+
+git log
+
+--Atualizar o repositório local com alterações remotas--
+
+git pull origin nome_da_branch
+
+--enviar--
+
+git push origin nome_da_branch
+
