@@ -1,2 +1,0 @@
-fazer pagina,quando o usuario colocar dados ele enviar para outra pagina,
-depois armazenar em um banco de dados 
