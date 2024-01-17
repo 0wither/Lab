@@ -1,3 +1,2 @@
-const objs=docoment.getElementsByTagName("div")
-
-console.log(objs)
+const objs = document.getElementsByTagName("div");
+console.log(objs);
