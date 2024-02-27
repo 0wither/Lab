@@ -1,12 +1,6 @@
-const readline = require('readline');
+nome = prompt("digite seu nome");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
-rl.question('Digite algo: ', (userInput) => {
-  console.log('Você digitou:', userInput);
-  rl.close();
-});
+console.log("ola" + nome + "bem vindo a rolleta russa");
+
 

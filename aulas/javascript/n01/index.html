@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- sistema de touch,quando clikar em um div button ele aumeatar--> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>event</title>
+  <style>
+
+div#area {
+   width: 200px;
+   height: 200px;
+   line-height 200px;
+   background-color: grey;
+   text-align: center;
+   line-height: 200px;
+}
+
+  </style>
+</head>
+<body>
+ <div id="area" onclick="toque()">
+  poster 1
+ </div>
+<script>
+  function toque() { 
+  var a = window.document.getElementById(`area`)
+  a.style.background = "green"
+  a.innerText = 'Clikou!'
+  }
+</script>
+</body>
+</html>
+
