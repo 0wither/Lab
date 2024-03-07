@@ -1,0 +1,7 @@
++ adição 
+- subtração
+* multiplicão
+/ divisão
+% resto da divisão
+++ incremento
+
