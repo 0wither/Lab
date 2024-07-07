@@ -1,0 +1,14 @@
+#include <iostream> 
+
+using namespace std;
+
+void soma();
+
+int main() {
+  soma();
+  return 0;
+}
+
+void soma() {
+ cout << "VOid" << endl;
+}
