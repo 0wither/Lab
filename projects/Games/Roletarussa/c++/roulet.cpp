@@ -6,26 +6,64 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-//variavel do player
-int hp = 7;
-char name[21];
-int opc;
-int serra = 1,
-lupa = 1,
-soda = 1,
-regen = 1;
-//inimigo status 
-int hp_inimigo = 7;
-int Iserra,Ilupa,Isoda,Iregen;
+
+
+
+class Player {
+public:
+    std::string name;
+    int hp;
+    int serra;
+    int lupa;
+    int soda;
+    int regen;
+    int cortado;
+    int damage;
+    // Construtor padrão
+    Player() : hp(6), serra(1), lupa(10), soda(10), regen(1), damage(1) {}
+};
+
+
+class Enemy {
+public:
+  int hp;
+  int serra;
+  int lupa;
+  int soda;
+  int regen;
+
+  Enemy() : hp(6), serra(1), lupa(1), soda(1), regen(1) {}
+
+};
+
+//variaveis globais 
+int opc; //opcão opara o telcado
 //rodadas
 int rodadas = 0;
 int rodadas_max = 6;
-// Declarando função
-void intro(int balasV,int balasC);
-void inicio();
-void morreu(bool morto);
+std::vector<char> balas;
+int balasV = 0;
+int balasF = 0;
+// Declarando funçãoo
+void shuffleVector(std::vector<char>& vec);
+void TelaBalas(Player & player);
+void RandomBalas();
+void RandomItem(Player & player,Enemy & enemy);
+void ItensUse(Player & player, Enemy & enemy);
 void limparTela(); 
+void cena2(Player&player,Enemy & enemy);
 
+// Função para embaralhar usando rand()
+void shuffleVector(std::vector<char>& vec) {
+    size_t n = vec.size();
+    for (size_t i = 0; i < n; ++i) {
+        size_t j = rand() % n;
+        std::swap(vec[i], vec[j]);
+    }
+}
+
+
+//gerador 
 int generateRandom(int upper, bool includeZero) {
     int number;
     do {
@@ -33,78 +71,48 @@ int generateRandom(int upper, bool includeZero) {
     } while (!includeZero && number == 0);
     return number;
 }
-//------------------------------------------------------------------
-
-
-
-  int main() {
-  std::cout << "Bem-vindo à roleta russa jogador.\n Digite seu nome: " << std::endl;  
-  std::cin >> name;
-  intro(0,0);
-  inicio();
-
-return 0;
-}
-
-//------------------------------------------------------------------
-
-
-
 
 
 
 // Definindo a função
-  void intro(int balasV,int balasC) {
-   srand(static_cast<unsigned int>(time(0)));
-  //srand(time(0));
-  balasV = generateRandom(6,false);
-  balasC = generateRandom(5,false);
+void RandomBalas() {
+srand(static_cast<unsigned int>(time(0)));
+  
+  balasV = generateRandom(6,false); //Definindo quantas balas vão ser geradas
+  balasF = generateRandom(5,false); //Definindo quantas balas vão ser geradas
 
-   std::cout << "comecando..." << std::endl;
-  std::cout << "------------------------------------------------" << std::endl;
-  std::cout << balasV << "X balas falsas:"<< std::endl; 
-  std::cout << balasC << "X balas verdadeiras:" << std::endl;
-  std::cout << "------------------------------------------------" << std::endl;
+  for (int i = 0; i < balasV; ++i) {
+    balas.push_back('V'); // 'V' para balas verdadeiras
+  }
+
+  for (int i = 0; i < balasF; ++i) {
+     balas.push_back('F'); // 'F' para balas falsas
+   }
+
+// Embaralha as balas
+shuffleVector(balas);
+}
+
+
+// mostrar na tela balas
+void TelaBalas() { 
+  std::cout << balasV << "X balas falsas:"<< '\n'; 
+  std::cout << balasF << "X balas verdadeiras:" << '\n';
+  std::cout << "------------------------------------------------" << '\n';
   std::cin.clear();
   }
-//jogo
- void inicio() {
-  int rodadas = 1;
-  bool morto = false;
+ void ItensUse(Player & player,Enemy & enemy) {
+
   int teclado;
-  int GunDamage = 1;
   bool cortado = false;
-
-if (rodadas == 2) {
-// sistema sorteio de itens
-  std::cout << "Voce ganhou:" << std::endl;
-  serra = generateRandom(2,true);
-  lupa = generateRandom(2,true);
-  soda = generateRandom(2,true);
-  regen = generateRandom(2,true);
-  std::cout << serra << "X serras" << std::endl;
-  std::cout << soda << "X sodas" << std::endl;
-  std::cout << lupa << "X lupas" << std::endl;
-  std::cout << regen << "X cigarros" << std::endl;
-  Iserra = generateRandom(2,true);
-  Ilupa = generateRandom(2,true);
-  Isoda = generateRandom(2,true);
-  Iregen = generateRandom(2,true);
-}
-if (hp <= 0) {morto = true;}
-if (morto == true) {morreu(true);}
-if (cortado ==  true) {
-  std::cout << "--Cano da arma cortado--";
-  GunDamage = 2;
-}
  do {
-  std::cout << "Your hp:\n" << hp << std::endl;
+  std::cout << "Your hp:\n" << player.hp << '\n';
 
-  std::cout << serra << "X serras [1]" << std::endl;
-  std::cout << soda << "X sodas [2]" << std::endl;
-  std::cout << lupa << "X lupas [3]" << std::endl;
-  std::cout << regen << "X cigarros [4]" << std::endl;
-  std::cout << regen << "proximo [99]" << std::endl;
+  std::cout << player.serra << "X serras [1]" << '\n';
+  std::cout << player.soda << "X sodas [2]" << '\n';
+  std::cout << player.lupa << "X lupas [3]" << '\n';
+  std::cout << player.regen << "X cigarros [4]" << '\n';
+  std::cout << "proximo [99]" << '\n';
 
   std::cout << "\nselecione qual item vocẽ vai usar:";
   
@@ -113,69 +121,146 @@ if (cortado ==  true) {
  if (std::cin.fail()) {
  std::cin.clear(); // Limpar o erro de entrada
  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignorar o resto da linha
- std::cout << "--opção invalida...--" << std::endl;
- std::cout << "------------------------------------------------" << std::endl;
+ std::cout << "--opção invalida...--" << '\n';
+ std::cout << "------------------------------------------------" << '\n';
   continue; // Voltar para o início do loop
   //limparTela();
  }
   switch (teclado) {
     case 1: // item que dobra dano: serra
        if (cortado == true) { // verifica se serra foi usada
-        std::cout << "--sua arma ja foi esta causando dobro dano--" << std::endl;
+        std::cout << "--sua arma ja foi esta causando dobro dano--" << '\n';
        }
-        if (serra <= 0 && cortado == false ) {
-        std::cout << "--Voce não tem serras--" << std::endl;
+        if (player.serra <= 0 && cortado == false ) {
+        std::cout << "--Voce não tem serras--" << '\n';
         }
-       if (serra > 0) {
+       if (player.serra > 0) {
        if (cortado == false) {  // verfica se serra foi usada
-        std::cout << "--Arma recebe dobro de dano agora--" << std::endl;
+        std::cout << "--Arma recebe dobro de dano agora--" << '\n';
         cortado = true;
-        GunDamage = 2;
-        --serra;
+        player.damage = 2;
+        --player.serra;
        }}
        break;
     case 2: // item que pula rodadas: soda
-        if (soda <= 0) {
-        std::cout << "--Voce não tem Soda--" << std::endl;
+        if (player.soda <= 0) {
+        std::cout << "--Voce não tem Soda--" << '\n';
         }
-        if (soda > 0) {
-        std::cout << "--Soda foi usada--" << std::endl;
-        --soda;
+        if (player.soda > 0) {
+        std::cout << "--Soda foi usada--" << '\n';
+        if(balas.back() == 'F') {
+            std::cout << "retirada: " << "falsa" << '\n';
+        } else if(balas.back() == 'V') {
+            std::cout << "retirada: " << "verdadeira" << '\n';
+        } else {
+            std::cout << "%ERROR%" << '\n';
+          }
+          balas.pop_back(); //retira a bala
+          --player.soda;
         }
        break;
     case 3: //item que ve a proxima bala: lupa
-        if (lupa <= 0) {
-        std::cout << "--Voce não tem Lupa--" << std::endl;
+        if (player.lupa <= 0) {
+        std::cout << "--Voce não tem Lupa--" << '\n';
         }
-        if (lupa > 0) {
-        std::cout << "--Lupa foi usada--" << std::endl;
-        --lupa;
+        if (player.lupa > 0) {
+         std::cout << "--Lupa foi usada--" << '\n';
+         --player.lupa; 
+            //verifica se bala e falsa ou nao
+            if(balas.back() == 'F') {
+            std::cout << "proxima bala e:" << "falsa" << '\n';
+             } else if(balas.back() == 'V') 
+            std::cout << "proxima bala e:" << "verdadeira" << '\n';
+             } else {
+             std::cout << "%sem balas%" << '\n';
+      }
+    break;
+      case 4:
+        if(player.regen <= 0) {
+         std::cout << "--Voce não tem Cigarros--" << '\n';
         }
+        if(player.hp > 6) {
+          std::cout << "--Cigarro foi usado--" << '\n';
+        }
+        if (player.regen > 0) {
+          std::cout << "--Cigarro foi usado--" << '\n';
+          --player.regen;
+        }
+      break;
+     }
+    if (!balas.back()) {
+      RandomItem(player,enemy);
+    }
+    std::cout << "------------------------------------------------" << std::endl;
+   } while (teclado != 99);
+    cena2(player,enemy);
+}
+  void RandomItem(Player & player,Enemy & enemy) {
+  ++rodadas; 
+  if (rodadas == 2) {
+  limparTela();
+  std::cout << "----Raund: "<< rodadas << " ----- \n";
+    // sistema sorteio de itens
+  std::cout << "Voce ganhou:" << '\n';
+  player.serra = generateRandom(2,true);
+  player.lupa = generateRandom(2,true);
+  player.soda = generateRandom(2,true);
+  player.regen = generateRandom(2,true);
+  std::cout << player.serra << "X serras" << '\n';
+  std::cout << player.soda << "X sodas" << '\n';
+  std::cout << player.lupa << "X lupas" << '\n';
+  std::cout << player.regen << "X cigarros" << '\n';
+  enemy.serra = generateRandom(2,true);
+  enemy.lupa = generateRandom(2,true);
+  enemy.soda = generateRandom(2,true);
+  enemy.regen = generateRandom(2,true);
+  }
+ }
 
-        break;
-    case 4: // item que lhe da 1 de hp: cigarro 
-       if (regen <= 0) {
-        std::cout << "--Voce não tem Cigarros--" << std::endl;
-        }
-        if (regen > 0) {
-        std::cout << "--Cigarro foi usada--" << std::endl;
-        --regen;
-        ++hp;
-        }
-
-        break;
-
-    default:
-      std::cout << "--opção invalida...--" << std::endl;
+void cena2(Player & player, Enemy & enemy) {
+  TelaBalas();
+  do {
+  std::cout << enemy.hp << "x hp enemy" <<  '\n';
+  std::cout << player.hp << "x hp your" <<  '\n';
+  std::cout << "shoot you [1]" << '\n'; 
+  std::cout << "shoot enemy [2]" << '\n'; 
+  std::cin >> opc;
+  if (std::cin.fail()) {
+    std::cin.clear(); // Limpar o erro de entrada
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignorar o resto da linha
+    std::cout << "--opção invalida...--" << '\n';
+    std::cout << "------------------------------------------------" << std::endl;
+    continue;
+  }
+  switch (opc) {
+    case 1:
+     if (balas.back() == 'V')  {
+      std::cout << "--Voce sofreu dano--" << '\n';
+      player.hp -= player.damage;
+      //vez do enemy
+    } else if(balas.back() == 'F') {
+      std::cout << "--Bala estava vazia--" << '\n';
+      // vez do player continua por estar vazio
+      ItensUse(player,enemy);
        }
-  std::cout << "------------------------------------------------" << std::endl;
-  } while(teclado != 99);
-  inicio();
- }
-//assim que jogdor perder:
- void morreu(bool morto) {
+    break;
+    case 2:
+    if (balas.back() == 'V') {
+    enemy.hp -= player.damage;
+    }
+    break;
+    default:
+    std::cout << "--opção invalida...--" << '\n';
+    break;
+   }
+     std::cout << "------------------------------------------------" << '\n';
+   } while (opc != 99);
+  //vez do enimigo
+    player.damage = 1;
+  }
 
- }
+
+
 void limparTela() {
     #ifdef _WIN32
         system("cls");
@@ -183,3 +268,31 @@ void limparTela() {
         system("clear");
     #endif
 }
+
+
+
+
+//------------------------------------------------------------------
+
+
+
+  int main() {
+
+  Player player;
+  Enemy enemy;
+  std::cout << "Bem-vindo à roleta russa jogador.\n Digite seu nome: " << std::endl;  
+  std::cin >> player.name;
+  std::cout << "comecando..." << '\n';
+  std::cout << "------------------------------------------------" << '\n';
+  std::vector<char> balas; // Declara o vetor de balas
+  RandomBalas();
+  RandomItem(player,enemy);
+  TelaBalas();
+  ItensUse(player,enemy); //usar pra qaubdo for vez do player
+return 0;
+}
+
+//------------------------------------------------------------------
+
+
+
