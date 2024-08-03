@@ -1,5 +1,3 @@
 # Laboratorio 
 
-aqui onde vai ficar meus projetos na nuvem 
-
-quero fazer haking ou ferramentas tabem
+aqui onde vai ficar meus projetos na nuvem , e aulas de todas linguagens <3
