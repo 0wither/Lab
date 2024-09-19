@@ -1,8 +1,0 @@
-let num1 = 5;
-let num2 = '5';
-
-console.log(num1 === 5); // true, pois ambos são números e têm o mesmo valor
-console.log(num1 === num2); // false, pois um é número e o outro é string, apesar de terem o mesmo valor
-
-console.log(num1 !== '5'); // true, pois um é número e o outro é uma string
-console.log(num1 !== 5); // false, pois ambos são número

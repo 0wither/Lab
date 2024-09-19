@@ -1,8 +1,0 @@
-var s = 'Javascript';
-
-'Eu estou aprendendo s' // Isso não faz interpolação.
-'Eu estou aprendendo ' + s // Isso usa concatenação para juntar a string 'Eu estou aprendendo ' com o valor da variável s.
-`Eu estou aprendendo ${s}` // Isso usa template strings para realizar a interpolação, inserindo o valor da variável s na string.
-
-// Use o ponto e vírgula ao final de cada instrução.
-// Para executar, use o comando 'node' no ambiente Node.js.

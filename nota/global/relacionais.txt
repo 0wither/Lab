@@ -1,7 +1,0 @@
-
-5 > 2: O operador ">" verifica se 5 é maior que 2, o que é verdadeiro.
-7 < 4: O operador "<" verifica se 7 é menor que 4, o que é verdadeiro.
-8 >= 8: O operador ">=" verifica se 8 é maior ou igual a 8, o que é verdadeiro.
-9 <= 7: O operador "<=" verifica se 9 é menor ou igual a 7, o que é falso.
-5 == 5: O operador "==" verifica se 5 é igual a 5, o que é verdadeiro.
-5 != 4: O operador "!=" verifica se 5 é diferente de 4, o que é verdadeiro.
