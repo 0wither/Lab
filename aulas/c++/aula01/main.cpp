@@ -8,6 +8,7 @@ using namespace std;
 
 //função main,principal do progama
 int main() {
+
    //saida de dados
    cout << "Hello, World!\nCurso C++ ";
    //indica que progama terminou
