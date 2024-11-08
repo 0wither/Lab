@@ -42,6 +42,7 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
+<<<<<<< HEAD
         "typeinfo": "cpp",
         "bit": "cpp",
         "charconv": "cpp",
@@ -64,5 +65,8 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
+=======
+        "typeinfo": "cpp"
+>>>>>>> f639d5f0e3888fda171af7e86e08cda71d719589
     }
 }
