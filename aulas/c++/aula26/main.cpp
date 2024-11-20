@@ -27,8 +27,9 @@ int main() {
  // std::cout << "Primeiro valor de num..: " << num.front() << '\n';
  // std::cout << "Ultimo   valor de num..: " << num.back() << '\n';
  // std::cout << "Ultimo   valor do meio.: " << num.at(tam/2) << '\n';
-  // num.insert(num.begin()+1,999);//begin = inserir na frente,inserindo na segunda posição,po
-  //por conta do  '+1"'
+ 
+ // num.insert(num.begin()+1,999);//begin = inserir na frente,inserindo na segunda posição,po
+ //por conta do  '+1"'
   
   //num.insert(num.end()-2,999);//end = inserir naa ultimaa,inserindo na segunda pos
   //num.pop_back(); // retira elementos,comecando do Ultimo
