@@ -7,6 +7,7 @@ aqui onde vai ficar meus projetos e exercícios na nuvem,aulas de todas linguage
 meu obejetivo e ser um dev c++
 
 (Sou bem ruim nesse negócio de commits)
+
 }
 
 
@@ -17,5 +18,6 @@ meu objetivo agora tentar entrar na area de android, criar aplicativos android e
 
 
 boom e isso talvez proximo comit desse projeto seja em 2026 
+
 }
 
